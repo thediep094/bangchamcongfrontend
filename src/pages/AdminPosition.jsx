@@ -1,0 +1,73 @@
+import React, { useState } from "react";
+import Header from "../sections/Header";
+import axios from "axios";
+import { API_URL } from "../API_URL";
+
+const AdminPosition = () => {
+  const [userForm, setUserForm] = useState({
+    name: "",
+    salary: "",
+  });
+
+  const handleCreate = async () => {
+    try {
+      const res = await axios.post(
+        `${API_URL}/api/position/create`,
+        userForm
+      );
+
+      alert("Tạo chuc vu thành công");
+    } catch (error) {
+        alert("Tạo chuc vu thất bại");
+    }
+  };
+  return (
+    <div className="register">
+      <Header />
+      <div className="register__wrapper">
+        <div className="register__form">
+          <form>
+            <h1>Create an position</h1>
+
+            <div className="input_field">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                required
+                onChange={(e) => {
+                  setUserForm({
+                    ...userForm,
+                    name: e.target.value,
+                  });
+                }}
+              />
+            </div>
+            <div className="input_field">
+              <input
+                type="text"
+                name="salary"
+                placeholder="salary"
+                id="salary"
+                onChange={(e) => {
+                  setUserForm({
+                    ...userForm,
+                    salary: e.target.value,
+                  });
+                }}
+                required
+              />
+            </div>
+          </form>
+
+          <div className="login-sucess" onClick={() => handleCreate()}>
+            Tao chuc vu
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminPosition;
