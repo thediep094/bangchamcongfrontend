@@ -14,15 +14,14 @@ const Login = () => {
   });
   const accessToken = localStorage.getItem("accessToken");
   const user = useSelector((state) => state.user.user);
+  const isLogin = useSelector((state) => state.user.isLogin);
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const handleLogin = () => {
-    setIsLoading(true)
     login(dispatch, {
       username: userForm.username,
       password: userForm.password,
     });
-    setIsLoading(false)
   };
   useEffect(() => {
     if (accessToken) {
@@ -71,9 +70,9 @@ const Login = () => {
                 </div>
               </form>
 
-              <div className="login-sucess" onClick={() => handleLogin()}>
-              {isLoading ? <Loading /> : 'Login'}
-            </div>
+              
+              {isLogin ? <Loading /> : <div className="login-sucess" onClick={() => handleLogin()}>Login</div>}
+           
 
             <div className="other-actions">
               <div>
