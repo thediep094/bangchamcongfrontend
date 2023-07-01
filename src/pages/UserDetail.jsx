@@ -3,7 +3,7 @@ import Header from "../sections/Header";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "../styles/pages/UserDetail.scss";
-import { API_URL } from "../API_URL";
+import { API_AI, API_URL } from "../API_URL";
 const UserDetail = () => {
   const user = useSelector((state) => state.user.user);
   const [listPosition, setListPosition] = useState([]);
@@ -40,6 +40,9 @@ const UserDetail = () => {
           },
         }
       );
+
+      const updateFace = await axios.get(`${API_AI}/convert_vector/${user?.id}`)
+
 
       alert("Image uploaded successfully");
     } catch (error) {
@@ -100,8 +103,8 @@ const UserDetail = () => {
       <div className="userDetails">
         <form className="form__img">
           <label className="input_field">
-            Click to upload image
-            
+            <span>Click to upload image</span>
+            <img src={`https://truongan912.s3.ap-southeast-1.amazonaws.com/${user?.id}.jpg`} alt="" />
             <input type="file" style={{
               display: 'none'
             }} onChange={(e) => handleFileChange(e)} />

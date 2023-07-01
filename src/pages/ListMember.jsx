@@ -5,13 +5,16 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "../API_URL";
 import { useParams } from "react-router-dom";
+import Loading from "../sections/Loading";
 const ListMember = () => {
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const [findPosition, setFindPosition] = useState("all");
   const [listPosition, setListPosition] = useState([]);
   const {position} =  useParams();
   const user = useSelector((state) => state.user.user);
   const fetchData = async () => {
+    setIsLoading(true)
     try {
       const res = await axios.post(
         `${API_URL}/api/user/admin/getallusers/${findPosition}`,
@@ -19,17 +22,23 @@ const ListMember = () => {
           admin: user?.role == "admin" ? true : false,
         }
       );
+      setIsLoading(false)
       setList(res.data.users);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false)
+    }
   };
 
   useEffect(() => {
     const fetchPositions = async () => {
+      setIsLoading(true)
       try {
         const res = await axios.get(`${API_URL}/api/position/getall`);
-
         setListPosition(res.data.data);
-      } catch (error) {}
+        setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+      }
     };
     fetchPositions();
   }, []);
@@ -78,7 +87,7 @@ const ListMember = () => {
           </div>
         </div>
         <h1>Danh sach nhan vien</h1>
-        <div className="listmember__content-table">
+       {isLoading ? <Loading /> :  <div className="listmember__content-table">
           <div className="listmember__item">
             <div className="chamcong__heading-item">Ten</div>
 
@@ -117,7 +126,7 @@ const ListMember = () => {
               </div>
             );
           })}
-        </div>
+        </div>}
       </div>
     </div>
   );
