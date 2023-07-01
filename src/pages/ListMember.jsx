@@ -49,6 +49,7 @@ const ListMember = () => {
   }, [user]);
 
   const handleDelete = async (id) => {
+    setIsLoading(true)
     try {
       const res = await axios.post(
         `${API_URL}/api/user/admin/delete/${id}`,
@@ -56,10 +57,11 @@ const ListMember = () => {
           admin: user?.role == "admin" ? true : false,
         }
       );
-      alert("Deleted");
       fetchData();
+      setIsLoading(false)
     } catch (error) {
       alert("Error delete");
+      setIsLoading(false)
     }
   };
   return (

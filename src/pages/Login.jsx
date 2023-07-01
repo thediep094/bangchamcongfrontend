@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/apiCall";
 import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../store/store";
+import Loading from '../sections/Loading'
 import "../styles/pages/Login.scss"
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [userForm, setUserForm] = useState({
     username: "",
     password: "",
@@ -15,10 +17,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const handleLogin = () => {
+    setIsLoading(true)
     login(dispatch, {
       username: userForm.username,
       password: userForm.password,
     });
+    setIsLoading(false)
   };
   useEffect(() => {
     if (accessToken) {
@@ -68,7 +72,7 @@ const Login = () => {
               </form>
 
               <div className="login-sucess" onClick={() => handleLogin()}>
-              Login
+              {isLoading ? <Loading /> : 'Login'}
             </div>
 
             <div className="other-actions">

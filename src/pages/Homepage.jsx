@@ -5,13 +5,16 @@ import { useSelector } from "react-redux";
 import "../styles/pages/Homepage.scss";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../API_URL";
+import Loading from "../sections/Loading";
 const Homepage = () => {
   const [month, setMonth] = useState(null);
   const [year, setYear] = useState(null);
   const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
   const [dataTable, setDataTable] = useState([]);
   const user = useSelector((state) => state.user.user);
   const fetchData = async () => {
+    setIsLoading(true)
     const bodyData = {
       id: user?.id,
     };
@@ -34,6 +37,8 @@ const Homepage = () => {
     }, 0);
 
     setTotal(totalSalary);
+
+    setIsLoading(false)
   };
 
   const handleThongke = () => {
@@ -83,7 +88,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        <div className="chamcong__content">
+        {isLoading ? <Loading /> : <div className="chamcong__content">
           <div className="chamcong__content-heading">
             <div className="chamcong__time chamcong__heading-item">Ngay</div>
             <div className="chamcong__time chamcong__heading-item">
@@ -170,7 +175,7 @@ const Homepage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );

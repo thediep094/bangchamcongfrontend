@@ -4,59 +4,25 @@ const Loading = () => {
   return (
     <div className="loading">
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        style={{ margin: 'auto', background: 'transparent', display: 'block' }}
-        width="50px"
-        height="50px"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMidYMid"
-      >
-        <circle cx="50" cy="50" r="0" fill="none" stroke="#e90c59" strokeWidth="2">
-          <animate
-            attributeName="r"
-            repeatCount="indefinite"
-            dur="1.5s"
-            values="0;40"
-            keyTimes="0;1"
-            keySplines="0 0.2 0.8 1"
-            calcMode="spline"
-            begin="0s"
-          />
-          <animate
-            attributeName="opacity"
-            repeatCount="indefinite"
-            dur="1.5s"
-            values="1;0"
-            keyTimes="0;1"
-            keySplines="0.2 0 0.8 1"
-            calcMode="spline"
-            begin="0s"
-          />
-        </circle>
-        <circle cx="50" cy="50" r="0" fill="none" stroke="#46dff0" strokeWidth="2">
-          <animate
-            attributeName="r"
-            repeatCount="indefinite"
-            dur="1.5s"
-            values="0;40"
-            keyTimes="0;1"
-            keySplines="0 0.2 0.8 1"
-            calcMode="spline"
-            begin="-0.75s"
-          />
-          <animate
-            attributeName="opacity"
-            repeatCount="indefinite"
-            dur="1.5s"
-            values="1;0"
-            keyTimes="0;1"
-            keySplines="0.2 0 0.8 1"
-            calcMode="spline"
-            begin="-0.75s"
-          />
-        </circle>
-      </svg>
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      style={{ margin: 'auto', display: 'block' }}
+      width="60px"
+      height="60px"
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid"
+    >
+      <circle cx="50" cy="50" fill="none" stroke="#e15b64" strokeWidth="10" r="35" strokeDasharray="164.93361431346415 56.97787143782138">
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          repeatCount="indefinite"
+          dur="1.1363636363636362s"
+          values="0 50 50;360 50 50"
+          keyTimes="0;1"
+        ></animateTransform>
+      </circle>
+    </svg>
     </div>
   );
 };
