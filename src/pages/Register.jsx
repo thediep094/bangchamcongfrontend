@@ -22,7 +22,7 @@ const Register = () => {
     role: "user",
     slary: 0,
     position: "",
-    gender: "",
+    gender: "male",
   });
 
   const accessToken = localStorage.getItem("accessToken");
@@ -160,6 +160,7 @@ const Register = () => {
             </div>
             <div className="input_field">
               <select
+              value={userForm.position}
                 onChange={(e) => {
                   setUserForm({
                     ...userForm,
@@ -176,11 +177,13 @@ const Register = () => {
             </div>
             <div className="input_field">
               <select
+                  value={userForm.gender}
                 onChange={(e) => {
                   setUserForm({
                     ...userForm,
                     gender: e.target.value,
                   });
+
                 }}
               >
                 <option value="male">Male</option>
