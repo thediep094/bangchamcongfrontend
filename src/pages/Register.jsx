@@ -21,7 +21,7 @@ const Register = () => {
     phone: "",
     role: "user",
     slary: 0,
-    position: "",
+    position: "none",
     gender: "male",
   });
 
@@ -168,6 +168,7 @@ const Register = () => {
                   });
                 }}
               >
+                <option value="none" disabled>None</option>
                 {listPosition
                   ? listPosition.map((item) => {
                       return <option value={item._id}>{item.name}</option>;
