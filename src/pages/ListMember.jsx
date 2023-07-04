@@ -118,7 +118,11 @@ const ListMember = () => {
                   <div
                     className="listmember__delete"
                     onClick={() => {
-                      handleDelete(item._id);
+                      if(item.role == 'admin') {
+                        alert("Can't delete admin")
+                      } else {
+                        handleDelete(item._id);
+                      }
                     }}
                   >
                     Xoa
