@@ -3,6 +3,8 @@ import Header from "../sections/Header";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import "../styles/pages/UserDetail.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { API_AI, API_URL } from "../API_URL";
 import Loading from "../sections/Loading";
 const UserDetail = () => {
@@ -205,19 +207,10 @@ const UserDetail = () => {
                 <label htmlFor="fullname">Fullname</label>
               </div>
               <div className="input_field">
-                <input
-                  type="text"
-                  name="date"
-                  id="date"
-                  value={userForm?.date}
-                  onChange={(e) => {
-                    setUserForm({
-                      ...userForm,
-                      date: e.target.value,
-                    });
-                  }}
-                  required
-                />
+              <DatePicker selected={userForm.date} onChange={(date) => setUserForm({
+                    ...userForm,
+                    date: date,
+                  })} />
                 <label htmlFor="date">Date</label>
               </div>
               <div className="input_field">

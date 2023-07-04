@@ -5,6 +5,8 @@ import axios from "axios";
 import "../styles/pages/UserDetail.scss";
 import { useParams } from "react-router-dom";
 import { API_URL } from "../API_URL";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const AdminUserDetail = () => {
   const user = useSelector((state) => state.user.user);
   const [listPosition, setListPosition] = useState([]);
@@ -164,19 +166,10 @@ const AdminUserDetail = () => {
             <label htmlFor="fullname">Fullname</label>
           </div>
           <div className="input_field">
-            <input
-              type="text"
-              name="date"
-              id="date"
-              value={userForm?.date}
-              onChange={(e) => {
-                setUserForm({
-                  ...userForm,
-                  date: e.target.value,
-                });
-              }}
-              required
-            />
+          <DatePicker selected={userForm.date} onChange={(date) => setUserForm({
+                    ...userForm,
+                    date: date,
+                  })} />
             <label htmlFor="date">Date</label>
           </div>
           <div className="input_field">
