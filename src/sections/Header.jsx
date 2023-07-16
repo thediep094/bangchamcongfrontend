@@ -20,15 +20,15 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__navigation">
-        <a href="/">Cham cong</a>
+        <a href="/">Timesheets</a>
 
-        { user?.role === "admin" ? <a href="/admin/list-member/all">Danh sach</a> : null}
+        { user?.role === "admin" ? <a href="/admin/list-member/all">List employee</a> : null}
         {user?.role === "admin" ? <a href="/register" className="header__account">
-            Tao tai khoan
+            Create account
           </a> : null}  
 
           {user?.role === "admin" ? <a href="/admin/position" className="header__account">
-            Tao chuc vu
+            Create role
           </a> : null}  
       </div>
 

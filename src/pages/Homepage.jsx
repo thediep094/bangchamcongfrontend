@@ -53,9 +53,9 @@ const Homepage = () => {
       <Header />
       <div className="chamcong__wrapper">
         <div className="chamcong__heading">
-          <h1>Bang cham cong</h1>
+          <h1>Timesheets</h1>
           <div className="chamcong__heading-inputs">
-            <h2>Chon thoi gian</h2>
+            <h2>Choose time</h2>
             <label htmlFor="month">
               <span>Month</span>
               <input
@@ -84,28 +84,28 @@ const Homepage = () => {
             >
               Reset
             </button>
-            <button onClick={() => handleThongke()}>Thong ke</button>
+            <button onClick={() => handleThongke()}>Search</button>
           </div>
         </div>
 
         {isLoading ? <Loading /> : <div className="chamcong__content">
           <div className="chamcong__content-heading">
-            <div className="chamcong__time chamcong__heading-item">Ngay</div>
+            <div className="chamcong__time chamcong__heading-item">Date</div>
             <div className="chamcong__time chamcong__heading-item">
-              Gio bat dau
+            Start time
             </div>
             <div className="chamcong__time chamcong__heading-item">
-              Gio ket thuc
+            Time ends
             </div>
             <div className="chamcong__time chamcong__heading-item">
-              So gio lam viec
+            Working hours
             </div>
 
             <div className="chamcong__salary chamcong__heading-item">
-              Luong theo gio
+            Hourly
             </div>
 
-            <div className="chamcong__total chamcong__heading-item">Tong</div>
+            <div className="chamcong__total chamcong__heading-item">Total</div>
           </div>
 
           <div className="chamcong__content-table">

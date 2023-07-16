@@ -71,10 +71,10 @@ const ListMember = () => {
 
       <div className="listmember__heading">
           <div>
-            <h2>Chon chuc vu</h2>
+            <h2>Choose a position</h2>
             <select onChange={(e)=> setFindPosition(e.target.value)}  className="listmember__heading-inputs">
             <option value={"all"}>
-                    Tat ca
+                   All
                   </option>
               { listPosition ? listPosition.map((item) => {
                 return(
@@ -88,18 +88,18 @@ const ListMember = () => {
             <button className="listmember__heading-btn" onClick={() => fetchData()}>Tim</button>
           </div>
         </div>
-        <h1>Danh sach nhan vien</h1>
+        <h1>List of employee</h1>
        {isLoading ? <Loading /> :  <div className="listmember__content-table">
           <div className="listmember__item">
-            <div className="chamcong__heading-item">Ten</div>
+            <div className="chamcong__heading-item">Name</div>
 
-            <div className="chamcong__heading-item">So dien thoai</div>
+            <div className="chamcong__heading-item">Number</div>
 
-            <div className="chamcong__heading-item">gioi tinh</div>
+            <div className="chamcong__heading-item">Gender</div>
 
-            <div className="chamcong__heading-item">Chuc vu</div>
+            <div className="chamcong__heading-item">Role</div>
 
-            <div className="chamcong__edit">Chinh sua</div>
+            <div className="chamcong__edit">Edit</div>
           </div>
           {list.map((item, index) => {
             console.log(item)
@@ -114,7 +114,7 @@ const ListMember = () => {
                 <div className="chamcong__heading-item">{item?.position?.name}</div>
 
                 <div className="chamcong__edit">
-                  <a href={`/admin/account/${item._id}`}>Sua</a>
+                  <a href={`/admin/account/${item._id}`}>Edit</a>
                   <div
                     className="listmember__delete"
                     onClick={() => {
@@ -125,9 +125,9 @@ const ListMember = () => {
                       }
                     }}
                   >
-                    Xoa
+                    Delete
                   </div>
-                  <a href={`/admin/statistical/${item.id}`}>Xem chi tiet</a>
+                  <a href={`/admin/statistical/${item.id}`}>Detail</a>
                 </div>
               </div>
             );
