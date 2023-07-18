@@ -86,13 +86,30 @@ const Leave = () => {
       // If the date is not valid, return an empty string
       return "";
     }
-    return date.toLocaleDateString("en-GB", {
+    return date.toLocaleDateString("en-US", {
       day: "2-digit",
       month: "2-digit",
       year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
+
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // If the date is not valid, return an empty string
+      return "";
+    }
+    return new Date(dateString.slice(0, -1)).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  };
 
   return (
     <div className="register chamcong">
@@ -172,10 +189,10 @@ const Leave = () => {
         <div className="chamcong__content">
           <div className="chamcong__content-heading">
             <div className="chamcong__time chamcong__heading-item">
-              Date start
+              Time start
             </div>
             <div className="chamcong__time chamcong__heading-item">
-              Date end
+              Time end
             </div>
             <div
               className="chamcong__time chamcong__heading-item"
@@ -193,10 +210,10 @@ const Leave = () => {
                 return (
                   <div className="chamcong__item" key={index}>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.check_in)}
+                      {formatTime(item.check_in)}
                     </div>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.check_out)}
+                      {formatTime(item.check_out)}
                     </div>
                     <div
                       className="chamcong__item-time chamcong__heading-item"

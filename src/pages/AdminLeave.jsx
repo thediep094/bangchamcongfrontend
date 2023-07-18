@@ -76,6 +76,23 @@ const AdminLeave = () => {
       day: "2-digit",
       month: "2-digit",
       year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  };
+
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // If the date is not valid, return an empty string
+      return "";
+    }
+    return new Date(dateString.slice(0, -1)).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
     });
   };
 
@@ -93,10 +110,13 @@ const AdminLeave = () => {
               Name
             </div>
             <div className="chamcong__time chamcong__heading-item">
-              Date start
+              Date create
             </div>
             <div className="chamcong__time chamcong__heading-item">
-              Date end
+              Time start
+            </div>
+            <div className="chamcong__time chamcong__heading-item">
+              Time end
             </div>
             <div
               className="chamcong__time chamcong__heading-item"
@@ -118,10 +138,13 @@ const AdminLeave = () => {
                       {item.user.fullname}
                     </div>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.check_in)}
+                      {formatTime(item.createdAt)}
                     </div>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.check_out)}
+                      {formatTime(item.check_in)}
+                    </div>
+                    <div className="chamcong__item-time chamcong__heading-item">
+                      {formatTime(item.check_out)}
                     </div>
                     <div
                       className="chamcong__item-time chamcong__heading-item"

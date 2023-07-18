@@ -49,6 +49,23 @@ const Homepage = () => {
   useEffect(() => {
     fetchData();
   }, [user]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // If the date is not valid, return an empty string
+      return "";
+    }
+    return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+
   return (
     <div className="chamcong">
       <Header />
@@ -125,30 +142,18 @@ const Homepage = () => {
             <div className="chamcong__content-table">
               {dataTable
                 ? dataTable.map((item, index) => {
-                    let date = `${new Date(item?.check_in).getDate()}/${
-                      new Date(item?.check_in).getMonth() + 1
-                    }/${new Date(item?.check_in).getFullYear()}`;
-                    let timeStart = `${new Date(
-                      item?.check_in
-                    ).getHours()}:${new Date(
-                      item?.check_in
-                    ).getMinutes()}:${new Date(item?.check_in).getSeconds()}`;
-                    let timeFinish = `${new Date(
-                      item?.check_out
-                    ).getHours()}:${new Date(
-                      item?.check_out
-                    ).getMinutes()}:${new Date(item?.check_out).getSeconds()}`;
-                    let checkIn = new Date(item?.check_in);
-                    let checkOut = new Date(item?.check_out);
-                    let timeDifferenceMs =
-                      checkOut.getTime() - checkIn.getTime();
-                    let timeDifferenceHours =
-                      timeDifferenceMs / (1000 * 60 * 60);
-                    const lateArrival =
-                      new Date(item?.check_in).getHours() > 8
-                        ? (new Date(item?.check_in).getHours() - 8) * 20000
-                        : 0;
-
+                  let date = item.check_in ? new Date(item.check_in.slice(0, -1)).toLocaleDateString("en-US") : "";
+                  let timeStart = item.check_in ? new Date(item.check_in.slice(0, -1)).toLocaleTimeString("en-US") : "";
+                  let timeFinish = item.check_out ? new Date(item.check_out.slice(0, -1)).toLocaleTimeString("en-US") : "";
+                  let checkIn = new Date(item?.check_in);
+                  let checkOut = new Date(item?.check_out);
+                  let timeDifferenceMs = checkOut.getTime() - checkIn.getTime();
+                  let timeDifferenceHours = timeDifferenceMs / (1000 * 60 * 60);
+                  const checkInHours = new Date(item.check_in.slice(0, -1)).getHours();
+                  const lateArrival =
+                    checkInHours > 8
+                      ? (checkInHours - 8) * 20000
+                      : 0;
                     return (
                       <div className="chamcong__item" key={index}>
                         <div className="chamcong__item-time chamcong__heading-item">
