@@ -124,7 +124,7 @@ const UserDetail = () => {
           <Fragment>
             <form className="form__img">
               <label className="input_field">
-                <span>Click to upload image</span>
+                {/* <span>Click to upload image</span> */}
                 <img
                   src={`https://truongan912.s3.ap-southeast-1.amazonaws.com/${user?.id}.jpg`}
                   alt=""

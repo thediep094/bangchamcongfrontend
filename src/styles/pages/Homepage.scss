@@ -80,3 +80,32 @@
     }
   }
 }
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status-pending {
+  background-color: yellow;
+  color: black;
+}
+
+.status-approved {
+  background-color: green;
+  color: white;
+}
+
+.status-rejected {
+  background-color: red;
+  color: white;
+}
+
+.chamcong__item-time.chamcong__heading-item {
+  button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+}

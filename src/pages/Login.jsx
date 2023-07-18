@@ -73,7 +73,7 @@ const Login = () => {
               
               {isLogin ? <Loading /> : <div className="login-sucess" onClick={() => handleLogin()}>Login</div>}
            
-
+{/* 
             <div className="other-actions">
               <div>
                 <Link
@@ -83,7 +83,7 @@ const Login = () => {
                   Create account
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
     </div>

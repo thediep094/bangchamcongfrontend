@@ -193,11 +193,11 @@ const Register = () => {
             Register
           </div>
 
-          <div className="other-actions">
+          {/* <div className="other-actions">
             <div>
               <Link to={"/login"}>Already have an account?</Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

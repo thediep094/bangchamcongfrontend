@@ -7,6 +7,8 @@ import ListMember from "./pages/ListMember";
 import AdminUserDetail from "./pages/AdminUserDetail";
 import AdminStatistical from "./pages/AdminStatistical";
 import AdminPosition from "./pages/AdminPosition";
+import Leave from "./pages/Leave";
+import AdminLeave from "./pages/AdminLeave";
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,8 @@ function App() {
           <Route index path="/login" element={<Login />} />
           <Route index path="/register" element={<Register />} />
           <Route index path="/account" element={<UserDetail />} />
+          <Route index path="/leave" element={<Leave />} />
+          <Route index path="/admin/leave" element={<AdminLeave />} />
           <Route
             index
             path="/admin/account/:id"
