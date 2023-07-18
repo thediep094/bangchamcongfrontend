@@ -71,6 +71,9 @@ const AdminLeave = () => {
 
         <div className="chamcong__content">
           <div className="chamcong__content-heading">
+          <div className="chamcong__time chamcong__heading-item">
+              Name
+            </div>
             <div className="chamcong__time chamcong__heading-item">
               Date start
             </div>
@@ -80,7 +83,7 @@ const AdminLeave = () => {
             <div
               className="chamcong__time chamcong__heading-item"
               style={{
-                width: "50%",
+                width: "40%",
               }}
             >
               Reason
@@ -93,6 +96,9 @@ const AdminLeave = () => {
               dataTable.map((item, index) => {
                 return (
                   <div className="chamcong__item" key={index}>
+                     <div className="chamcong__item-time chamcong__heading-item">
+                      {item.user.fullname}
+                    </div>
                     <div className="chamcong__item-time chamcong__heading-item">
                       {formatDate(item.startDate)}
                     </div>
@@ -102,7 +108,7 @@ const AdminLeave = () => {
                     <div
                       className="chamcong__item-time chamcong__heading-item"
                       style={{
-                        width: "50%",
+                        width: "40%",
                       }}
                     >
                       {item.reason}

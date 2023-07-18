@@ -69,7 +69,7 @@ const Leave = () => {
         ) : (
           <div className="register__form">
             <form>
-              <h1>Create a leave</h1>
+              <h1>Report</h1>
 
               <div className="input_field">
                 <input

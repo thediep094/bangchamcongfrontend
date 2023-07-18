@@ -21,7 +21,7 @@ const Header = () => {
     <div className="header">
       <div className="header__navigation">
         <a href="/">Timesheets</a>
-        <a href="/leave">Leave application</a>
+        <a href="/leave">Report</a>
         { user?.role === "admin" ? <a href="/admin/list-member/all">List employee</a> : null}
         {user?.role === "admin" ? <a href="/register" className="header__account">
             Create account
@@ -32,7 +32,7 @@ const Header = () => {
           </a> : null}  
 
           {user?.role === "admin" ? <a href="/admin/leave" className="header__account">
-           Leave manage
+           Report manage
           </a> : null}  
       </div>
 

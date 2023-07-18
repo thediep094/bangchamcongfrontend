@@ -10,11 +10,11 @@ const Homepage = () => {
   const [month, setMonth] = useState(null);
   const [year, setYear] = useState(null);
   const [total, setTotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [dataTable, setDataTable] = useState([]);
   const user = useSelector((state) => state.user.user);
   const fetchData = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const bodyData = {
       id: user?.id,
     };
@@ -33,12 +33,13 @@ const Homepage = () => {
       const checkOut = new Date(item.check_out);
       const duration = (checkOut - checkIn) / (1000 * 60 * 60); // Duration in hours
       const salary = duration * user?.position?.salary;
-      return total + salary;
+      const lateArrival = new Date(item?.check_in).getHours() > 8 ? (new Date(item?.check_in).getHours() - 8) * 20000 : 0;
+      return total + salary - lateArrival;
     }, 0);
 
     setTotal(totalSalary);
 
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleThongke = () => {
@@ -88,94 +89,115 @@ const Homepage = () => {
           </div>
         </div>
 
-        {isLoading ? <Loading /> : <div className="chamcong__content">
-          <div className="chamcong__content-heading">
-            <div className="chamcong__time chamcong__heading-item">Date</div>
-            <div className="chamcong__time chamcong__heading-item">
-            Start time
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className="chamcong__content">
+            <div className="chamcong__content-heading">
+              <div className="chamcong__time chamcong__heading-item">Date</div>
+              <div className="chamcong__time chamcong__heading-item">
+                Start time
+              </div>
+              <div className="chamcong__time chamcong__heading-item">
+                Time ends
+              </div>
+              <div className="chamcong__time chamcong__heading-item">
+                Working hours
+              </div>
+
+              <div className="chamcong__salary chamcong__heading-item">
+                Hourly
+              </div>
+
+              <div className="chamcong__salary chamcong__heading-item">
+                Late
+              </div>
+
+              <div className="chamcong__total chamcong__heading-item">
+                Total
+              </div>
             </div>
-            <div className="chamcong__time chamcong__heading-item">
-            Time ends
-            </div>
-            <div className="chamcong__time chamcong__heading-item">
-            Working hours
-            </div>
 
-            <div className="chamcong__salary chamcong__heading-item">
-            Hourly
-            </div>
+            <div className="chamcong__content-table">
+              {dataTable
+                ? dataTable.map((item, index) => {
+                    let date = `${new Date(item?.check_in).getDate()}/${
+                      new Date(item?.check_in).getMonth() + 1
+                    }/${new Date(item?.check_in).getFullYear()}`;
+                    let timeStart = `${new Date(
+                      item?.check_in
+                    ).getHours()}:${new Date(
+                      item?.check_in
+                    ).getMinutes()}:${new Date(item?.check_in).getSeconds()}`;
+                    let timeFinish = `${new Date(
+                      item?.check_out
+                    ).getHours()}:${new Date(
+                      item?.check_out
+                    ).getMinutes()}:${new Date(item?.check_out).getSeconds()}`;
+                    let checkIn = new Date(item?.check_in);
+                    let checkOut = new Date(item?.check_out);
+                    let timeDifferenceMs =
+                      checkOut.getTime() - checkIn.getTime();
+                    let timeDifferenceHours =
+                      timeDifferenceMs / (1000 * 60 * 60);
+                    const lateArrival =
+                      new Date(item?.check_in).getHours() > 8
+                        ? (new Date(item?.check_in).getHours() - 8) * 20000
+                        : 0;
 
-            <div className="chamcong__total chamcong__heading-item">Total</div>
-          </div>
+                    return (
+                      <div className="chamcong__item" key={index}>
+                        <div className="chamcong__item-time chamcong__heading-item">
+                          {date}
+                        </div>
+                        <div className="chamcong__item-time chamcong__heading-item">
+                          {timeStart}
+                        </div>
+                        <div className="chamcong__item-time chamcong__heading-item">
+                          {timeFinish}
+                        </div>
 
-          <div className="chamcong__content-table">
-            {dataTable
-              ? dataTable.map((item, index) => {
-                  let date = `${new Date(item?.check_in).getDate()}/${
-                    new Date(item?.check_in).getMonth() + 1
-                  }/${new Date(item?.check_in).getFullYear()}`;
-                  let timeStart = `${new Date(
-                    item?.check_in
-                  ).getHours()}:${new Date(
-                    item?.check_in
-                  ).getMinutes()}:${new Date(item?.check_in).getSeconds()}`;
-                  let timeFinish = `${new Date(
-                    item?.check_out
-                  ).getHours()}:${new Date(
-                    item?.check_out
-                  ).getMinutes()}:${new Date(item?.check_out).getSeconds()}`;
-                  let checkIn = new Date(item?.check_in);
-                  let checkOut = new Date(item?.check_out);
-                  let timeDifferenceMs = checkOut.getTime() - checkIn.getTime();
-                  let timeDifferenceHours = timeDifferenceMs / (1000 * 60 * 60);
+                        <div className="chamcong__item-sogio chamcong__heading-item">
+                          {timeDifferenceHours.toFixed(2)}
+                        </div>
 
-                  return (
-                    <div className="chamcong__item" key={index}>
-                      <div className="chamcong__item-time chamcong__heading-item">
-                        {date}
+                        <div className="chamcong__item-salary chamcong__heading-item">
+                          {user?.position?.salary.toLocaleString("en-US")}
+                        </div>
+
+                        <div className="chamcong__item-salary chamcong__heading-item">
+                          { lateArrival}
+                        </div>
+
+                        <div className="chamcong__item-total chamcong__heading-item">
+                          {Number(
+                            (
+                              timeDifferenceHours * user?.position?.salary -
+                              lateArrival
+                            ).toFixed(0)
+                          ).toLocaleString("en-US")}
+                        </div>
                       </div>
-                      <div className="chamcong__item-time chamcong__heading-item">
-                        {timeStart}
-                      </div>
-                      <div className="chamcong__item-time chamcong__heading-item">
-                        {timeFinish}
-                      </div>
+                    );
+                  })
+                : null}
 
-                      <div className="chamcong__item-sogio chamcong__heading-item">
-                        {timeDifferenceHours.toFixed(2)}
-                      </div>
+              <div className="chamcong__item">
+                <div className="chamcong__item-time chamcong__heading-item"></div>
 
-                      <div className="chamcong__item-salary chamcong__heading-item">
-                        {user?.position?.salary.toLocaleString("en-US")}
-                      </div>
+                <div className="chamcong__item-sogio chamcong__heading-item"></div>
 
-                      <div className="chamcong__item-total chamcong__heading-item">
-                        {Number(
-                          (
-                            timeDifferenceHours * user?.position?.salary
-                          ).toFixed(0)
-                        ).toLocaleString("en-US")}
-                      </div>
-                    </div>
-                  );
-                })
-              : null}
-
-            <div className="chamcong__item">
-              <div className="chamcong__item-time chamcong__heading-item"></div>
-
-              <div className="chamcong__item-sogio chamcong__heading-item"></div>
-
-              <div className="chamcong__item-salary chamcong__heading-item"></div>
-              <div className="chamcong__item-salary chamcong__heading-item"></div>
-              <div className="chamcong__item-salary chamcong__heading-item"></div>
-
-              <div className="chamcong__item-total chamcong__heading-item">
-                {Number(total.toFixed(0)).toLocaleString("en-US")}
+                <div className="chamcong__item-salary chamcong__heading-item"></div>
+                <div className="chamcong__item-salary chamcong__heading-item"></div>
+                <div className="chamcong__item-salary chamcong__heading-item"></div>
+                <div className="chamcong__item-salary chamcong__heading-item"></div>
+                <div className="chamcong__item-total chamcong__heading-item">
+                  {Number(total.toFixed(0)).toLocaleString("en-US")}
+                </div>
               </div>
             </div>
           </div>
-        </div>}
+        )}
       </div>
     </div>
   );
