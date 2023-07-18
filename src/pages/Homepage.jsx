@@ -3,7 +3,7 @@ import Header from "../sections/Header";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "../styles/pages/Homepage.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../API_URL";
 import Loading from "../sections/Loading";
 const Homepage = () => {
@@ -116,6 +116,10 @@ const Homepage = () => {
               <div className="chamcong__total chamcong__heading-item">
                 Total
               </div>
+
+              <div className="chamcong__total chamcong__heading-item">
+                Button
+              </div>
             </div>
 
             <div className="chamcong__content-table">
@@ -177,6 +181,10 @@ const Homepage = () => {
                             ).toFixed(0)
                           ).toLocaleString("en-US")}
                         </div>
+
+                        <Link to={`/leave/${item._id}`} className="chamcong__item-total chamcong__heading-item" >
+                          Report
+                        </Link>
                       </div>
                     );
                   })
@@ -194,6 +202,7 @@ const Homepage = () => {
                 <div className="chamcong__item-total chamcong__heading-item">
                   {Number(total.toFixed(0)).toLocaleString("en-US")}
                 </div>
+                <div className="chamcong__item-salary chamcong__heading-item"></div>
               </div>
             </div>
           </div>

@@ -52,8 +52,26 @@ const AdminLeave = () => {
     }
   };
 
+  const updateTimesheet = async (id, check_in, check_out) => {
+    try {
+      setIsLoading(true);
+      await axios.put(`${API_URL}/api/timesheet/admin/${id}`, {
+        id: id,
+        check_in: check_in,
+        check_out: check_out
+      });
+      setIsLoading(false);
+    } catch (error) {
+  
+    }
+  }
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      // If the date is not valid, return an empty string
+      return "";
+    }
     return date.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "2-digit",
@@ -100,10 +118,10 @@ const AdminLeave = () => {
                       {item.user.fullname}
                     </div>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.startDate)}
+                      {formatDate(item.check_in)}
                     </div>
                     <div className="chamcong__item-time chamcong__heading-item">
-                      {formatDate(item.endDate)}
+                      {formatDate(item.check_out)}
                     </div>
                     <div
                       className="chamcong__item-time chamcong__heading-item"
@@ -136,7 +154,10 @@ const AdminLeave = () => {
                         Pending
                       </button>
                       <button
-                        onClick={() => updateLeaveStatus(item._id, "Approved")}
+                        onClick={() => {
+                          updateLeaveStatus(item._id, "Approved")
+                          updateTimesheet(item?.timesheet, item?.check_in, item?.check_out)
+                        }}
                       >
                         Approved
                       </button>
