@@ -34,6 +34,10 @@ const Header = () => {
           {user?.role === "admin" ? <a href="/admin/leave" className="header__account">
            Report manage
           </a> : null}  
+
+          {user?.role === "admin" ? <a href="/late" className="header__account">
+           Late money manage
+          </a> : null}  
       </div>
 
       <div className="header__buttons">

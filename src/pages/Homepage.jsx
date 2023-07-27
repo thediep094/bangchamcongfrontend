@@ -10,6 +10,7 @@ const Homepage = () => {
   const [month, setMonth] = useState(null);
   const [year, setYear] = useState(null);
   const [total, setTotal] = useState(0);
+  const [lateMoney, setLateMoney] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
   const [dataTable, setDataTable] = useState([]);
   const user = useSelector((state) => state.user.user);
@@ -27,6 +28,8 @@ const Homepage = () => {
     }
 
     const data = await axios.post(`${API_URL}/api/timesheet/getbyid`, bodyData);
+    const fetchLateData = await axios.get(`${API_URL}/api/late`)
+    setLateMoney(fetchLateData.data.data.money)
     setDataTable(data.data.data);
     const totalSalary = data.data.data.reduce((total, item) => {
       const checkIn = new Date(item.check_in);
@@ -152,7 +155,7 @@ const Homepage = () => {
                   const checkInHours = new Date(item.check_in.slice(0, -1)).getHours();
                   const lateArrival =
                     checkInHours > 8
-                      ? (checkInHours - 8) * 20000
+                      ? (checkInHours - 8) * lateMoney
                       : 0;
                     return (
                       <div className="chamcong__item" key={index}>

@@ -9,6 +9,7 @@ import AdminStatistical from "./pages/AdminStatistical";
 import AdminPosition from "./pages/AdminPosition";
 import Leave from "./pages/Leave";
 import AdminLeave from "./pages/AdminLeave";
+import AdminLateMoney from "./pages/AdminLateMoney";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
           <Route index path="/account" element={<UserDetail />} />
           <Route index path="/leave/:id" element={<Leave />} />
           <Route index path="/admin/leave" element={<AdminLeave />} />
+          <Route index path="/late" element={<AdminLateMoney />} />
           <Route
             index
             path="/admin/account/:id"
